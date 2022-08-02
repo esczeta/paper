@@ -4,19 +4,15 @@ console.log("game starting...");
 
 
 const buttons = document.querySelectorAll('button');
-const divContainer = document.querySelector ("#container")
-
-
-var count = 0
 
 buttons.forEach((button) => {
 
     // and for each one we add a 'click' listener
     button.addEventListener('click', () => {
-        computerSelection = computerPlay(); 
-        playRound(button.innerHTML, computerSelection);
+        alert(button.id);
       });
     });
+
 
 
 
@@ -57,52 +53,21 @@ const computerPlay = () => {
 // tie -> if tie
 
 function playRound(playerSelection, computerSelection){
-
-    count ++;
-
-    const countDiv = document.createElement("div");
-    message = "----------ROUND  " + count + "-----------";
-    console.log(message);
-    // countDiv.textContent("message");
-
-    countDiv.textContent = message
-
-    // countDiv.textContent(message);
-    divContainer.append(countDiv);
-
-
+    
+        
     console.log("player selection:",  playerSelection);
-
-    const playerDiv = document.createElement("div");
-    playerDiv.textContent = "player selection: " + playerSelection;
-    divContainer.append(playerDiv);
-
     console.log("computer selection:",  computerSelection);
-
-    const compDiv = document.createElement("div");
-    compDiv.textContent = "computer selection: " + computerSelection;
-    divContainer.append(compDiv);
     
     if(playerSelection == computerSelection){
         return "tie"
     }
 
-
-    const resultDiv = document.createElement("div");
-
     if (playerSelection == r){
         if (computerSelection == s) {
             console.log("rock smashes scissor, you win")
-
-            resultDiv.textContent = "rock smashes scissor, you win"
-            divContainer.append(resultDiv);
             return 'you'
         } else {
             console.log("you lose")
-            resultDiv.textContent = "you lose"
-
-
-
             return "computer"
         }
     }
@@ -110,13 +75,9 @@ function playRound(playerSelection, computerSelection){
     if (playerSelection == p){
         if (computerSelection == r) {
             console.log("paper beats rock, you win")
-            resultDiv.textContent = "paper beats rock, you win";
-            divContainer.append(resultDiv);
             return'you'
         } else {
             console.log("you lose")
-            resultDiv.textContent = "you lose"
-            divContainer.append(resultDiv);
             return 'computer'
         }
     }
@@ -124,17 +85,12 @@ function playRound(playerSelection, computerSelection){
     if (playerSelection == s){
         if (computerSelection == p) {
             console.log("scissors beat paper, you win")
-            resultDiv.textContent = "scissors beat paper, you win"
-            divContainer.append(resultDiv);
             return 'you'
         } else {
             console.log("you lose")
-            resultDiv.textContent = "you lose"
-            divContainer.append(resultDiv);
             return 'computer'
         }
     }
-
 
     // if(
     //     (playerSelection == r && computerSelection == s) ||
@@ -175,60 +131,58 @@ function game(){
 
 
 
-    let playerChoose = prompt("input rock, paper, or scissor");
-    let csel = computerPlay();
-    let roundResults = playRound(playerChoose, csel);
+    for (let i = 0; i < 5; i++) {
+        let playerChoose = prompt("input rock, paper, or scissor");
+        let csel = computerPlay();
+        let roundResults = playRound(playerChoose, csel);
+  
 
+
+        if (!myArray.includes(playerChoose)) {
+            
+            alert ("unknown value");
+            console.log ("unknown value");
+            throw new Error("unknown value, exiting");
+        }
+
+        if (roundResults == "tie"){
+            draw++;
+        }
+        if (roundResults == "you"){
+            playerScore++;
+        }
+        if (roundResults == "computer"){
+            computerScore++;
+        }
+
+        console.log(roundResults);
+        console.log("Round scores:----")
+        console.log("You : ", playerScore)
+        console.log("Computer : ", computerScore)
+        console.log("Tie : ", draw)
+        console.log("-----------------")
+     }
+
+     console.log("final result : ======")
+
+     if (computerScore > playerScore){
+        console.log ("you lose");
+    }
     
-
-   
-    if (!myArray.includes(playerChoose)) {
-        
-        // alert ("unknown value");
-        console.log ("unknown value");
-        const errorDiv = document.createElement("div");
-        errorDiv.textContent = "unknown value";
-        divContainer.append(errorDiv);
-        
-
-        throw new Error("unknown value, exiting");
+    else if(computerScore < playerScore){
+        console.log ("you win");
     }
 
-    if (roundResults == "tie"){
-        draw++;
-    }
-    if (roundResults == "you"){
-        playerScore++;
-    }
-    if (roundResults == "computer"){
-        computerScore++;
+    else {
+        console.log ("it's a tie");
     }
 
-    console.log(roundResults);
-    console.log("Round scores:----")
-    console.log("You : ", playerScore)
-    console.log("Computer : ", computerScore)
-    console.log("Tie : ", draw)
-    console.log("-----------------")
-    }
 
-    console.log("final result : ======")
-
-    if (computerScore > playerScore){
-    console.log ("you lose");
-}
-
-else if(computerScore < playerScore){
-    console.log ("you win");
-}
-
-else {
-    console.log ("it's a tie");
 }
 
 
 
-// game()
+game()
 
 
 
